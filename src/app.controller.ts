@@ -6,25 +6,12 @@ import {
   Request,
   UseGuards,
 } from '@nestjs/common';
-import { LocalAuthGuard } from './auth/local-auth.guard';
 import { JwtAuthGuard } from './auth/jwt-auth.guard';
-import { AuthService } from './auth/auth.service';
-import { JwtService } from '@nestjs/jwt';
-import { jwtConstants } from './auth/constants';
-
+import { ApiTags } from '@nestjs/swagger';
+@ApiTags('AppController')
 @Controller()
 export class AppController {
-  constructor(
-    private authService: AuthService,
-    private jwtService: JwtService,
-  ) {}
-
-  @Post('/login')
-  @UseGuards(LocalAuthGuard)
-  login(@Request() req) {
-    console.log('login thanh cong');
-    return this.authService.login(req.user);
-  }
+  constructor() {}
 
   @UseGuards(JwtAuthGuard)
   @Get('profile')
